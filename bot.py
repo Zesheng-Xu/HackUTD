@@ -1,4 +1,5 @@
 import discord
+import json
 from secrets import token
 from makeServer import makeCategory
 client = discord.Client()
@@ -7,6 +8,9 @@ client = discord.Client()
 serverDict = {
     "UTDCS": "jmyWcPQU"
 }
+data = {}
+with open("data.json", "r") as read_file:
+        data = json.load(read_file)
 
 #when the bot loads
 @client.event
@@ -26,6 +30,7 @@ async def on_message(message):
     #make a category (and populate server)
     if message.content.startswith('.class '):
         guild = message.guild
-        await makeCategory(guild, message.content)
+        print(data)
+        await makeCategory(guild, message.content, data["CS 2340"])
 
 client.run(token)
